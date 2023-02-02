@@ -119,12 +119,28 @@ class LinkedList {
         		length--;
         	}
         }
+
+        void prepend(int value)
+        {
+            Node * newNode = new Node(value);
+
+            if(length == 0)
+                head = tail = newNode;
+            else
+            {
+                newNode->next = head;
+                head = newNode;
+            }
+
+            length++;
+        }
 };
 
 int main() {
         
     LinkedList* myLinkedList = new LinkedList(4);
 
+    myLinkedList->prepend(10);
     myLinkedList->append(15);
     myLinkedList->append(3);
 
