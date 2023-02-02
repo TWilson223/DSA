@@ -50,10 +50,10 @@ class LinkedList {
 
         void getHead() {
             if (head == nullptr) {
-                cout << "Head: nullptr" << endl;
+                cout << "\nHead: nullptr" << endl;
             } else {
-                cout << "Head: " << head->value << endl;
-                cout << "Head Address: " << head << endl;
+                cout << "\nHead: " << head->value << endl;
+                //cout << "Head Address: " << head << endl;
                 cout << "Head next: " << head->next << endl;
             }
         }
@@ -63,7 +63,7 @@ class LinkedList {
                 cout << "Tail: nullptr" << endl;
             } else { 
                 cout << "Tail: " << tail->value << endl;
-                cout << "Tail Address: " << tail << endl;
+                //cout << "Tail Address: " << tail << endl;
                 cout << "Tail next: " << tail->next << endl;
             }  
         }
@@ -87,12 +87,37 @@ class LinkedList {
         	length++;
         }
 
+        void deleteFirst()
+        {
+            if(length == 0)
+                cout << "\nLinked list is empty." << endl;
+            else
+            {
+                Node * temp = head;
+
+                //Check for 1 node left
+                if(head == tail)
+                    head = tail = nullptr;
+                else //More than 1 node left
+                    head = head->next;
+
+                cout << "\nDeleting First" << endl;
+                
+                if(head)
+                    cout << "New head is: " << head->value << endl;
+
+                cout << "Deleting Node: " << temp->value << endl;
+                length--;
+                delete temp;
+            }
+        }
+
         void deleteLast()
         {
         	Node * temp = head;
 
         	if(length == 0)
-        		cout << "Linked list is empty." << endl;
+        		cout << "\nLinked list is empty." << endl;
         	else if(length < 2)
         	{
         		head = tail = nullptr;
@@ -109,6 +134,7 @@ class LinkedList {
         		//Set temp to next node
         		//Delete temp
         		tail = temp;
+                cout << "\nDeleting Last" << endl;
         		cout << "New tail is: " << tail->value << endl;
 
         		temp = temp->next;
@@ -144,24 +170,29 @@ int main() {
     myLinkedList->append(15);
     myLinkedList->append(3);
 
-    myLinkedList->deleteLast();
-
+    cout << "\nLinked List Before:\n";
+    myLinkedList->printList();
     myLinkedList->getHead();
     myLinkedList->getTail();
     myLinkedList->getLength();
-    
-    cout << "\nLinked List:\n";
-    myLinkedList->printList();
 
-    /*  
-        EXPECTED OUTPUT:
-    	----------------
-        Head: 4
-        Tail: 4
-        Length: 1
+    myLinkedList->deleteFirst();
+    myLinkedList->deleteLast();
+        
+    cout << "\nLinked List After:\n";
+    myLinkedList->printList(); 
 
-        Linked List:
-        4
+    cout << "\nTesting edge cases for deleting:" << endl;
+    myLinkedList->deleteLast();
 
-    */       
+    cout << "\nLinked List After:\n";
+    myLinkedList->printList(); 
+
+    myLinkedList->deleteFirst();
+    myLinkedList->deleteLast();
+    myLinkedList->deleteFirst();
+
+    myLinkedList->getHead();
+    myLinkedList->getTail();
+    myLinkedList->getLength();  
 }
