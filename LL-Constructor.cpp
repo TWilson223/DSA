@@ -68,9 +68,10 @@ class LinkedList {
             }  
         }
 
-        void getLength() {
-            cout << "Length: " << length << endl;
-        }
+        int getLength()
+        {
+            return length;        
+        }            
 
         void append(int value)
         {
@@ -160,6 +161,41 @@ class LinkedList {
 
             length++;
         }
+
+        Node * get(int index)
+        {
+            if(index >= 0 && index < length)
+            {
+                Node * temp = head;
+                
+                for(int i = 0; i < index; i++)
+                    temp = temp->next;
+                
+                return temp;
+            }
+            else
+            {
+                cout << "Node does not exist in Linked List" << endl;
+
+                return nullptr;
+            }                
+        }
+
+        bool set(int index, int value)
+        {
+            Node * temp = get(index);
+            
+            if(temp)
+            {
+                temp->value = value;
+
+                cout << "Node at index " << index << " now has value: " << temp->value << endl;
+                
+                return true;
+            }                
+            else
+                return false;
+        }
 };
 
 int main() {
@@ -174,7 +210,14 @@ int main() {
     myLinkedList->printList();
     myLinkedList->getHead();
     myLinkedList->getTail();
-    myLinkedList->getLength();
+    cout << "Length: " << myLinkedList->getLength() << endl;
+
+    cout << "\nGet value at index 1: " << myLinkedList->get(1)->value << endl;
+    cout << "Get value at index "  << myLinkedList->getLength()-1 << ": " << myLinkedList->get((myLinkedList->getLength()-1))->value << endl;
+    cout << "Get value at index " << myLinkedList->getLength()  << ": " << myLinkedList->get(myLinkedList->getLength()) << endl;
+
+    myLinkedList->set(2, 44);
+    myLinkedList->set(10, 11);
 
     myLinkedList->deleteFirst();
     myLinkedList->deleteLast();
@@ -194,5 +237,5 @@ int main() {
 
     myLinkedList->getHead();
     myLinkedList->getTail();
-    myLinkedList->getLength();  
+    cout << "Length: " << myLinkedList->getLength() << endl;
 }
