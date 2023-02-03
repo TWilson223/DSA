@@ -249,6 +249,27 @@ class LinkedList {
                 return;
             }
         }
+
+        void reverse()
+        {
+            Node * temp = head;
+            Node * helperNode;
+            Node * prev;
+
+            head = tail;
+            tail = temp;
+
+            helperNode = temp->next;
+            prev = nullptr;
+
+            while(helperNode != nullptr)
+            {
+                helperNode = temp->next;
+                temp->next = prev;
+                prev = temp;
+                temp = helperNode;
+            }
+        }
 };
 
 int main() {
@@ -258,6 +279,12 @@ int main() {
     myLinkedList->prepend(10);
     myLinkedList->append(15);
     myLinkedList->append(3);
+
+    cout << "\nLinked List Before Reversing:\n";
+    myLinkedList->printList();
+    myLinkedList->reverse();
+    cout << "\nLinked List After Reversing:\n";
+    myLinkedList->printList();
 
     cout << "\nLinked List Before:\n";
     myLinkedList->printList();
