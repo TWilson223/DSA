@@ -175,10 +175,11 @@ class LinkedList {
             }
             else
             {
-                cout << "Node does not exist in Linked List" << endl;
+                cout << "Index out of bounds of LL" << endl;
 
                 return nullptr;
-            }                
+            }
+                
         }
 
         bool set(int index, int value)
@@ -195,6 +196,58 @@ class LinkedList {
             }                
             else
                 return false;
+        }
+
+        bool insert(int index, int value)
+        {
+            Node * temp;
+
+            cout << "\nAttempting insert of: " << value << " at index " << index << endl;                
+
+            if(index == 0)
+                prepend(value);
+            else if(index == length)
+                append(value);
+            else if(temp = get(index - 1))
+            {                
+                Node * newNode = new Node(value);
+
+                newNode->next = temp->next;
+
+                temp->next = newNode;
+
+                length++;
+            }
+            else
+                return false;
+
+            return true;
+        }
+
+        void deleteNode(int index)
+        {
+            if(index == 0)
+                return deleteFirst();
+            else if(index == length)
+                return deleteLast();
+            else if(index >= 0 && index < length)
+            {                
+                Node * temp = get(index - 1);
+                Node * nodeToDelete = temp->next;
+
+                cout << "\nDeleting node at index " << index << ": " << nodeToDelete->value << endl;
+
+                temp->next = nodeToDelete->next;
+
+                delete nodeToDelete;
+                length--;
+            }
+            else
+            {
+                cout << "LL is empty or index does not exist in LL" << endl;
+
+                return;
+            }
         }
 };
 
@@ -219,11 +272,23 @@ int main() {
     myLinkedList->set(2, 44);
     myLinkedList->set(10, 11);
 
-    myLinkedList->deleteFirst();
-    myLinkedList->deleteLast();
-        
+    myLinkedList->deleteNode(0);
+    myLinkedList->deleteNode(myLinkedList->getLength());
+
     cout << "\nLinked List After:\n";
     myLinkedList->printList(); 
+
+    myLinkedList->insert(0, 7);
+    cout << "Length: " << myLinkedList->getLength() << endl;
+    myLinkedList->insert(myLinkedList->getLength(), 20);
+    cout << "Length: " << myLinkedList->getLength() << endl;
+    myLinkedList->insert(2, 16);
+
+    myLinkedList->deleteNode(3);
+    myLinkedList->deleteNode(7);
+        
+    cout << "\nLinked List After:\n";
+    myLinkedList->printList();
 
     cout << "\nTesting edge cases for deleting:" << endl;
     myLinkedList->deleteLast();
